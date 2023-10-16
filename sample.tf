@@ -89,8 +89,7 @@ resource "google_bigquery_dataset" "remote_function_dataset" {
 }
 
 module "remote_function" {
-  # source                            = "github.com/yashmehta10/tf_bigquery_remote_function_module"
-  source                            = "/Users/yashmehta/Desktop/yash-sandbox-gcp/tf_bigquery_remote_function_module"
+  source                            = "github.com/yashmehta10/tf_bigquery_remote_function_module"
   gcp_project                       = var.project_id
   location                          = var.location
   bigquery_dataset                  = google_bigquery_dataset.remote_function_dataset.dataset_id
@@ -98,7 +97,6 @@ module "remote_function" {
   bigquery_external_connection_name = "remote_function_connection"
   endpoint_url                      = google_cloudfunctions_function.function.https_trigger_url
   remote_function_max_batch_size    = 1000
-  template_file_path                = "./templates/remote_functions.sql.tfpl"
 }
 
 # Grant connection Service Account Cloud Function invoker role
